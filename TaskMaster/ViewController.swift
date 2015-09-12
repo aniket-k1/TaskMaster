@@ -46,7 +46,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             alertController.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
                 event.people.append(UserManager.sharedInstance.uid!)
                 
-                self.firebaseRoot.childByAppendingPath("/events/\(event.id)/people").setValue(event.people)
+                self.firebaseRoot.childByAppendingPath("/events/\(event.id!)/people").setValue(event.people)
                 
                 self.selectedEvent = event
                 self.performSegueWithIdentifier("eventDetail", sender: self)
