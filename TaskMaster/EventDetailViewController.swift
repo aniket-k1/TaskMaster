@@ -91,19 +91,17 @@ class EventDetailViewController: UITableViewController, UITableViewDelegate, UIT
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var cell:UITableViewCell = tableView.dequeueReusableCellWithIdentifier("eventTaskTypeCell") as! UITableViewCell
-        switch indexPath.row {
+        switch indexPath.section {
         case 0:
             // Backlog
-            cell.detailTextLabel?.text = "(\(backlog.count))"
-            cell.textLabel?.text = "Backlog"
+            cell.textLabel?.text = backlog[indexPath.row].title
+            
         case 1:
             // In progress
-            cell.detailTextLabel?.text = "(\(inProgress.count))"
-            cell.textLabel?.text = "In Progress"
+            cell.textLabel?.text = inProgress[indexPath.row].title
         case 2:
             // Done
-            cell.detailTextLabel?.text = "(\(done.count))"
-            cell.textLabel?.text = "Done"
+            cell.textLabel?.text = done[indexPath.row].title
         default:
             println("This isn't supposed to happen")
         }
@@ -112,10 +110,31 @@ class EventDetailViewController: UITableViewController, UITableViewDelegate, UIT
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        if section == 0 {
+            return backlog.count
+        } else if section == 1 {
+            return inProgress.count
+        } else {
+            return done.count
+        }
     }
     
+    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 3
+    }
 
+    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        switch section {
+        case 0:
+            return "Backlog"
+        case 1:
+            return "In Progress"
+        case 2:
+            return "Done"
+        default:
+            return "Other"
+        }
+    }
     
     // MARK: - Navigation
 

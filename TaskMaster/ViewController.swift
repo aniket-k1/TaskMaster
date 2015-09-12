@@ -51,7 +51,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             self.performSegueWithIdentifier("loginStartSegue", sender: self)
             return
         }
-        
+        events.removeAll(keepCapacity: false)
         firebaseRoot.childByAppendingPath("/events").observeEventType(FEventType.ChildAdded, withBlock: { snapshot in
             self.events.append(Event.parse(snapshot.key, input: snapshot.value as! [String:AnyObject]))
             self.tableView.reloadData()
