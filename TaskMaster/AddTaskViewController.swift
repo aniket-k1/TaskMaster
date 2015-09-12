@@ -29,7 +29,7 @@ class AddTaskViewController: UIViewController {
         var firebaseRoot:Firebase = Firebase(url: "https://thetaskmaster.firebaseio.com/tasks/\(event!.id)")
         var newChild = firebaseRoot.childByAutoId()
         var task:Task = Task()
-        task.title = title
+        task.title = inputTaskName.text
         task.state = TaskState.Backlog
         task.assignee = ""
         newChild.setValue(task.toDict())

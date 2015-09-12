@@ -29,9 +29,9 @@ class EventDetailViewController: UITableViewController, UITableViewDelegate, UIT
     
     func addTask(snapshot: FDataSnapshot!) {
         let task:Task = Task.parse(snapshot.key, value: snapshot.value as! [String:AnyObject])
-        if snapshot.value["status"] as! Int == TaskState.Backlog.rawValue {
+        if snapshot.value["state"] as! Int == TaskState.Backlog.rawValue {
             self.backlog.append(task)
-        } else if snapshot.value["status"] as! Int == TaskState.InProgress.rawValue {
+        } else if snapshot.value["state"] as! Int == TaskState.InProgress.rawValue {
             self.inProgress.append(task)
         } else {
             self.done.append(task)
