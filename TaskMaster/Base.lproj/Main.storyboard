@@ -98,11 +98,56 @@
                             <outlet property="delegate" destination="ToK-ih-BsV" id="xKm-59-y04"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Event tasks" id="BGt-3g-oG0"/>
+                    <navigationItem key="navigationItem" title="Event tasks" id="BGt-3g-oG0">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="yld-aE-y0j">
+                            <connections>
+                                <segue destination="jFk-bS-9G2" kind="show" id="DIb-LE-Ttw"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rEu-a5-q79" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1279" y="1348"/>
+        </scene>
+        <!--Add New Task-->
+        <scene sceneID="lck-8G-ri1">
+            <objects>
+                <viewController id="jFk-bS-9G2" customClass="AddTaskViewController" customModule="TaskMaster" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Tw9-t6-IBA"/>
+                        <viewControllerLayoutGuide type="bottom" id="9l4-b1-M8Q"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="eKf-N6-Avn">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Task Name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YZZ-OF-qKS">
+                                <rect key="frame" x="16" y="105" width="568" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="YZZ-OF-qKS" firstAttribute="leading" secondItem="eKf-N6-Avn" secondAttribute="leadingMargin" id="4Ai-A2-DXc"/>
+                            <constraint firstItem="YZZ-OF-qKS" firstAttribute="trailing" secondItem="eKf-N6-Avn" secondAttribute="trailingMargin" id="vjx-0C-eKW"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Add New Task" id="cAt-VT-lfZ">
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="iAN-b0-RqY">
+                            <connections>
+                                <action selector="onSave:" destination="jFk-bS-9G2" id="Izs-aE-qIO"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="inputTaskName" destination="YZZ-OF-qKS" id="xyV-Ll-gMd"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mx4-N1-kB0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2015" y="1348"/>
         </scene>
         <!--Add Event-->
         <scene sceneID="peS-t8-d6p">
@@ -191,7 +236,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PH1-3r-CD5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1985" y="-190"/>
+            <point key="canvasLocation" x="1953" y="-368"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="5OQ-dd-3mD">

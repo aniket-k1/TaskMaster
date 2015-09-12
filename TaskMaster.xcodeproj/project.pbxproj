@@ -19,6 +19,7 @@
 		9CF0CF951BA4790D005E15A4 /* AddEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF0CF941BA4790D005E15A4 /* AddEventViewController.swift */; };
 		9CF0CF971BA498FA005E15A4 /* EventDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF0CF961BA498FA005E15A4 /* EventDetailViewController.swift */; };
 		9CF0CF991BA4A6D6005E15A4 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF0CF981BA4A6D6005E15A4 /* Task.swift */; };
+		9CF0CF9B1BA4D225005E15A4 /* AddTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF0CF9A1BA4D225005E15A4 /* AddTaskViewController.swift */; };
 		F1500F3E1A5FD3961DCDF48B /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DDC3AB6C5D4407C1A13B85B /* Pods.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 /* End PBXBuildFile section */
 
@@ -50,6 +51,7 @@
 		9CF0CF941BA4790D005E15A4 /* AddEventViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddEventViewController.swift; sourceTree = "<group>"; };
 		9CF0CF961BA498FA005E15A4 /* EventDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventDetailViewController.swift; sourceTree = "<group>"; };
 		9CF0CF981BA4A6D6005E15A4 /* Task.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
+		9CF0CF9A1BA4D225005E15A4 /* AddTaskViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddTaskViewController.swift; sourceTree = "<group>"; };
 		CFEB9B3379AFE40023D9F3B7 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		D84F8DB2E75BB7FB5619C022 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -125,6 +127,7 @@
 				9CF0CF941BA4790D005E15A4 /* AddEventViewController.swift */,
 				9CF0CF961BA498FA005E15A4 /* EventDetailViewController.swift */,
 				9CF0CF981BA4A6D6005E15A4 /* Task.swift */,
+				9CF0CF9A1BA4D225005E15A4 /* AddTaskViewController.swift */,
 			);
 			path = TaskMaster;
 			sourceTree = "<group>";
@@ -312,6 +315,7 @@
 				9C1A87541BA3E6590040D999 /* ViewController.swift in Sources */,
 				9C1A87521BA3E6590040D999 /* AppDelegate.swift in Sources */,
 				9CF0CF971BA498FA005E15A4 /* EventDetailViewController.swift in Sources */,
+				9CF0CF9B1BA4D225005E15A4 /* AddTaskViewController.swift in Sources */,
 				9CF0CF931BA45EBD005E15A4 /* Event.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

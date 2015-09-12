@@ -28,4 +28,12 @@ class Task {
         task.state = TaskState(rawValue: value["state"] as! Int)!
         return task
     }
+    
+    func toDict() -> [String:AnyObject] {
+        return [
+            "title": self.title!,
+            "assignee": self.assignee!,
+            "state": self.state.rawValue
+        ]
+    }
 }
