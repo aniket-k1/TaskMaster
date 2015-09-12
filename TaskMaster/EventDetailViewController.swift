@@ -62,18 +62,18 @@ class EventDetailViewController: UITableViewController, UITableViewDelegate, UIT
             return
         }
         
-        firebaseRoot.childByAppendingPath("\(event!.id)/").observeEventType(FEventType.ChildAdded, withBlock: {snapshot in
+        firebaseRoot.childByAppendingPath("\(event!.id!)/").observeEventType(FEventType.ChildAdded, withBlock: {snapshot in
             self.addTask(snapshot)
             
         })
         
-        firebaseRoot.childByAppendingPath("\(event!.id)/").observeEventType(FEventType.ChildChanged, withBlock: {snapshot in
+        firebaseRoot.childByAppendingPath("\(event!.id!)/").observeEventType(FEventType.ChildChanged, withBlock: {snapshot in
             // Find task by key, remove it
             self.removeTask(snapshot.key)
             self.addTask(snapshot)
         })
         
-        firebaseRoot.childByAppendingPath("\(event!.id)/").observeEventType(FEventType.ChildRemoved, withBlock: {snapshot in
+        firebaseRoot.childByAppendingPath("\(event!.id!)/").observeEventType(FEventType.ChildRemoved, withBlock: {snapshot in
             // Find task by key, remove it
             self.removeTask(snapshot.key)
             self.tableView.reloadData()
