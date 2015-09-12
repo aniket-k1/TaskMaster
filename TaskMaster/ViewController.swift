@@ -12,6 +12,7 @@ import Firebase
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     var events:[Event] = []
+    var selectedEvent:Event?
     
     @IBOutlet weak var tableView: UITableView!
     var firebaseRoot:Firebase = Firebase(url: "https://thetaskmaster.firebaseio.com")
@@ -35,6 +36,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         println("\(events[indexPath.row].name) was selected")
+        
+        let event = events[indexPath.row]
+        if event.joined {
+            self.selectedEvent = event
+            performSegueWithIdentifier("eventDetail", sender: self)
+        }
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -49,6 +56,14 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             self.events.append(Event.parse(snapshot.value as! [String:AnyObject]))
             self.tableView.reloadData()
         })
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        super.prepareForSegue(segue, sender: sender)
+        
+        if segue.identifier == "eventDetail" {
+            (segue.destinationViewController as! EventDetailViewController).event = self.selectedEvent
+        }
     }
 
     override func didReceiveMemoryWarning() {
