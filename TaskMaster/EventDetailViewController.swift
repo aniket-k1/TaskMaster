@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class EventDetailViewController: UITableViewController, UITableViewDelegate, UITableViewDataSource {
 
@@ -14,6 +15,7 @@ class EventDetailViewController: UITableViewController, UITableViewDelegate, UIT
     var backlog:[Task] = []
     var inProgress:[Task] = []
     var done:[Task] = []
+    var firebaseRoot:Firebase = Firebase(url: "https://thetaskmaster.firebaseio.com/tasks")
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,8 +27,57 @@ class EventDetailViewController: UITableViewController, UITableViewDelegate, UIT
         self.processTasks()
     }
     
+    func addTask(snapshot: FDataSnapshot!) {
+        let task:Task = Task.parse(snapshot.key, value: snapshot.value as! [String:AnyObject])
+        if snapshot.value["status"] as! Int == TaskState.Backlog.rawValue {
+            self.backlog.append(task)
+        } else if snapshot.value["status"] as! Int == TaskState.InProgress.rawValue {
+            self.inProgress.append(task)
+        } else {
+            self.done.append(task)
+        }
+        self.tableView.reloadData()
+    }
+    
+    func removeTask(key: String) {
+        for var i=0; i<self.backlog.count; i++ {
+            if self.backlog[i].key == key {
+                self.backlog.removeAtIndex(i)
+            }
+        }
+        for var i=0; i<self.inProgress.count; i++ {
+            if self.inProgress[i].key == key {
+                self.inProgress.removeAtIndex(i)
+            }
+        }
+        for var i=0; i<self.done.count; i++ {
+            if self.done[i].key == key {
+                self.done.removeAtIndex(i)
+            }
+        }
+    }
+    
     func processTasks() {
+        if event == nil {
+            return
+        }
         
+        firebaseRoot.childByAppendingPath("\(event!.id)/").observeEventType(FEventType.ChildAdded, withBlock: {snapshot in
+            self.addTask(snapshot)
+            
+        })
+        
+        firebaseRoot.childByAppendingPath("\(event!.id)/").observeEventType(FEventType.ChildChanged, withBlock: {snapshot in
+            // Find task by key, remove it
+            self.removeTask(snapshot.key)
+            self.addTask(snapshot)
+        })
+        
+        firebaseRoot.childByAppendingPath("\(event!.id)/").observeEventType(FEventType.ChildRemoved, withBlock: {snapshot in
+            // Find task by key, remove it
+            self.removeTask(snapshot.key)
+            self.tableView.reloadData()
+        })
     }
 
     override func didReceiveMemoryWarning() {

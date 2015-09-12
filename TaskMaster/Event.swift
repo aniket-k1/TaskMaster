@@ -9,13 +9,15 @@
 import Foundation
 
 class Event {
+    var id:String?
     var name:String?
     var owner:String?
     var people:[String] = []
     var joined:Bool = false
     
-    class func parse(input: [String:AnyObject]) -> Event {
+    class func parse(key: String?, input: [String:AnyObject]) -> Event {
         var event:Event = Event()
+        event.id = key
         event.name = input["name"] as? String
         event.owner = input["owner"] as? String
         event.people = input["people"] as! [String]
