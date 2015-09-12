@@ -9,7 +9,9 @@
 import UIKit
 import Firebase
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+    
+    var events:[Event] = []
     
     var firebaseRoot:Firebase = Firebase(url: "https://thetaskmaster.firebaseio.com")
 
@@ -19,16 +21,32 @@ class ViewController: UIViewController {
         
     }
     
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        var cell:UITableViewCell = tableView.dequeueReusableCellWithIdentifier("eventCell") as! UITableViewCell
+        cell.textLabel?.text = events[indexPath.row].name
+        return cell
+    }
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return events.count
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        println("\(events[indexPath.row].name) was selected")
+    }
+    
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
         if !UserManager.sharedInstance.loggedIn {
             self.performSegueWithIdentifier("loginStartSegue", sender: self)
+            return
         }
-    }
-    
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        super.prepareForSegue(segue, sender: sender)
+        
+        firebaseRoot.childByAppendingPath("/events").observeEventType(FEventType.ChildAdded, withBlock: { snapshot in
+            self.events.append(Event.parse(snapshot.key, input: snapshot.value as! [String:AnyObject]))
+
+        })
     }
 
     override func didReceiveMemoryWarning() {
