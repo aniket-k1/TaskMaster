@@ -14,6 +14,7 @@ router.get('/', function(req, res, next) {
 router.get('/choose', function(req, res, next) {
 	var people = [
 		{
+			id: 1361921,
 			name: "kashav",
 			tasks: [
 				{
@@ -46,6 +47,7 @@ router.get('/choose', function(req, res, next) {
 			]
 		},
 		{
+			id: 1395195391,
 			name: "bob",
 			tasks: [
 				{
@@ -70,39 +72,20 @@ router.get('/choose', function(req, res, next) {
 		}
 	];
 
-	var actions = {};
+	var actions = [];
 	people.forEach(function(person, i) {
 		person.tasks.forEach(function(task, j) {
 			if ( typeof actions[task.action.toLowerCase()] != 'undefined' ) {
-				if ( actions[task.action.toLowerCase()][person.name] != 'undefined' ) {
-					actions[task.action.toLowerCase()][person.name] += 1;
+				if ( actions[task.action.toLowerCase()][person.id] != 'undefined' ) {
+					actions[task.action.toLowerCase()][person.id] += 1;
 				}
 			} else {
 				actions[task.action.toLowerCase()] = {};
-				actions[task.action.toLowerCase()][person.name] = 1;
+				actions[task.action.toLowerCase()][person.id] = 1;
 			}
 		});
 	});
 	console.log(actions);
-
-	actionCount = {};
-	people.forEach(function(person, i) {
-		person.tasks.forEach(function(task, j) {
-			if (!actionCount.hasOwnProperty(task.action.toLowerCase())) {
-				actionCount[task.action.toLowerCase()] = 1;
-			} else {
-				actionCount[task.action.toLowerCase()] += 1;
-			}
-		});
-	});
-	//console.log(actionCount);
-
-	var userToReturn = Math.floor(Math.random() * people.length);
-	for (var i = 0 ; i < people.length; i++) {
-		if (people[i].tasks.length < people[userToReturn].tasks.length) {
-			userToReturn = i;
-		}
-	}
 
 	function foo(things) {
 		var toreturn;
@@ -123,7 +106,7 @@ router.get('/choose', function(req, res, next) {
 	}
 
 	request({
-		url:   'https://api.wit.ai/message?v=20150912&q=take%20food%20from%20the%20auditorium%20to%20the%20stadium&_t=291',
+		url:   'https://api.wit.ai/message?v=20150912&q=organize%20game%20for%20guests&_t=291',
 		headers: {
 			'Authorization' : 'Bearer ' + witai_auth_key,
 		}
@@ -131,6 +114,16 @@ router.get('/choose', function(req, res, next) {
 		body = JSON.parse(body);
 		//console.log(body);
 		//console.log(body.outcomes[0].entities);
+
+		var action = body.outcomes[0].entities.action;
+
+		var userToReturn = Math.floor(Math.random() * people.length);
+		for (var i = 0 ; i < people.length; i++) {
+			if (people[i].tasks.length < people[userToReturn].tasks.length) {
+				userToReturn = i;
+			}
+		}
+
 		var thing = {
 			text: body.outcomes[0]._text,
 			action: foo(body.outcomes[0].entities.action),
@@ -140,7 +133,7 @@ router.get('/choose', function(req, res, next) {
 			item: foo(body.outcomes[0].entities.item),
 			complete: 0
 		}
-		//people[userToReturn].tasks.push(thing);
+		people[userToReturn].tasks.push(thing);
 		//console.log(people[userToReturn]);
 	});
 
