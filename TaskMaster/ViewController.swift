@@ -13,12 +13,14 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     var events:[Event] = []
     
+    @IBOutlet weak var tableView: UITableView!
     var firebaseRoot:Firebase = Firebase(url: "https://thetaskmaster.firebaseio.com")
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -45,7 +47,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         firebaseRoot.childByAppendingPath("/events").observeEventType(FEventType.ChildAdded, withBlock: { snapshot in
             self.events.append(Event.parse(snapshot.value as! [String:AnyObject]))
-
+            self.tableView.reloadData()
         })
     }
 

@@ -14,7 +14,7 @@ class AddEventViewController : UIViewController {
     @IBOutlet weak var inputName: UITextField!
     
     @IBAction func onSave(sender: AnyObject) {
-        var firebaseRoot:Firebase = Firebase(url: "https://thetaskmaster.firebaseio.com")
+        var firebaseRoot:Firebase = Firebase(url: "https://thetaskmaster.firebaseio.com/events")
         var newChild = firebaseRoot.childByAutoId()
         var event:Event = Event()
         event.name = inputName.text

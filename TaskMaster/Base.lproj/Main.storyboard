@@ -54,6 +54,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="tableView" destination="4Yq-sc-L3V" id="5by-6j-Z0x"/>
                         <segue destination="crf-6O-Vas" kind="showDetail" identifier="loginStartSegue" id="3Vf-DS-wI8"/>
                     </connections>
                 </viewController>
