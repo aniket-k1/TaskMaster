@@ -4,6 +4,7 @@ PODS:
     - Firebase (~> 2.2)
 
 DEPENDENCIES:
+  - Firebase (>= 2.3.3)
   - FirebaseUI (~> 0.2)
 
 SPEC CHECKSUMS:

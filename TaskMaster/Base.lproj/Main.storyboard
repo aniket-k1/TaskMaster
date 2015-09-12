@@ -31,10 +31,63 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Ppj-D5-SSa"/>
+                    <connections>
+                        <segue destination="crf-6O-Vas" kind="showDetail" identifier="loginStartSegue" id="3Vf-DS-wI8"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1251" y="352"/>
+        </scene>
+        <!--Login View Controller-->
+        <scene sceneID="lGC-Ve-GEj">
+            <objects>
+                <viewController id="crf-6O-Vas" customClass="LoginViewController" customModule="TaskMaster" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="fum-wM-EQG"/>
+                        <viewControllerLayoutGuide type="bottom" id="UUc-xj-Vpb"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="LcK-dE-NTr">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cnm-Is-wFM">
+                                <rect key="frame" x="16" y="91" width="568" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FTa-Gj-0zi">
+                                <rect key="frame" x="16" y="136" width="41" height="30"/>
+                                <state key="normal" title="Login">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="onLogin:" destination="crf-6O-Vas" eventType="touchUpInside" id="qvp-A2-cKv"/>
+                                </connections>
+                            </button>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vFl-wd-0N0">
+                                <rect key="frame" x="16" y="53" width="568" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="cnm-Is-wFM" firstAttribute="trailing" secondItem="LcK-dE-NTr" secondAttribute="trailingMargin" id="1Bd-N1-6kS"/>
+                            <constraint firstItem="vFl-wd-0N0" firstAttribute="leading" secondItem="LcK-dE-NTr" secondAttribute="leadingMargin" id="4F5-gY-S4w"/>
+                            <constraint firstItem="cnm-Is-wFM" firstAttribute="leading" secondItem="LcK-dE-NTr" secondAttribute="leadingMargin" id="EmS-ue-VAA"/>
+                            <constraint firstItem="vFl-wd-0N0" firstAttribute="trailing" secondItem="LcK-dE-NTr" secondAttribute="trailingMargin" id="HDU-uK-zMJ"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="inputEmail" destination="vFl-wd-0N0" id="PKO-Xx-rZd"/>
+                        <outlet property="inputPassword" destination="cnm-Is-wFM" id="M6Y-cJ-XqB"/>
+                        <segue destination="PHo-z8-hK5" kind="showDetail" identifier="loginEndSegue" id="Eum-do-FTj"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="PH1-3r-CD5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1985" y="-190"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="5OQ-dd-3mD">
