@@ -26,12 +26,19 @@ class AddTaskViewController: UIViewController {
     }
     
     @IBAction func onSave(sender: AnyObject) {
-        var firebaseRoot:Firebase = Firebase(url: "https://thetaskmaster.firebaseio.com/tasks/\(event!.id)")
+        var firebaseRoot:Firebase = Firebase(url: "https://thetaskmaster.firebaseio.com/tasks/\(event!.id!)")
         var newChild = firebaseRoot.childByAutoId()
         var task:Task = Task()
         task.title = inputTaskName.text
         task.state = TaskState.Backlog
+        var members:NSArray = event!.people
+        var assignee: String;
+        for (i, member) in enumerate(members) {
+          
+        }
+        
         task.assignee = ""
+        
         newChild.setValue(task.toDict())
         
         self.navigationController?.popViewControllerAnimated(true)
