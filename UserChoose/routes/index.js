@@ -1,5 +1,8 @@
 var express = require('express');
 var request = require('request');
+var config = require('../config');
+
+var witai_auth_key = config.WITAI_AUTH_KEY;
 
 var router = express.Router();
 
@@ -122,7 +125,7 @@ router.get('/choose', function(req, res, next) {
 	request({
 		url:   'https://api.wit.ai/message?v=20150912&q=take%20food%20from%20the%20auditorium%20to%20the%20stadium&_t=291',
 		headers: {
-			'Authorization' : 'Bearer XFGEWE2WT5SJZZHNXIRVLGJ2IIV2OI7L',
+			'Authorization' : 'Bearer ' + witai_auth_key,
 		}
 	}, function(error, response, body) {
 		body = JSON.parse(body);
