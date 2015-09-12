@@ -11,17 +11,29 @@ import Foundation
 class Event {
     var name:String?
     var owner:String?
+    var people:[String] = []
     var joined:Bool = false
     
-    class func parse(key: String?, input: [String:AnyObject]) -> Event {
+    class func parse(input: [String:AnyObject]) -> Event {
         var event:Event = Event()
-        event.name = key != nil ? key : input["name"] as? String
+        event.name = input["name"] as? String
         event.owner = input["owner"] as? String
+        event.people = input["people"] as! [String]
         if UserManager.sharedInstance.uid != nil &&
-            contains((input["attendees"] as! [String]), UserManager.sharedInstance.uid!) &&
+            contains((input["people"] as! [String]), UserManager.sharedInstance.uid!) &&
             UserManager.sharedInstance.loggedIn == true {
             event.joined = true
         }
         return event
+    }
+    
+    func toDict() -> [String:AnyObject] {
+        var returnValue:[String:AnyObject] = [
+            "name": self.name!,
+            "owner": self.owner!,
+            "people": self.people
+        ]
+        
+        return returnValue
     }
 }

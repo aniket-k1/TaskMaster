@@ -44,7 +44,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         }
         
         firebaseRoot.childByAppendingPath("/events").observeEventType(FEventType.ChildAdded, withBlock: { snapshot in
-            self.events.append(Event.parse(snapshot.key, input: snapshot.value as! [String:AnyObject]))
+            self.events.append(Event.parse(snapshot.value as! [String:AnyObject]))
 
         })
     }
