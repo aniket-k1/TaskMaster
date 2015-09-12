@@ -13,6 +13,8 @@
 		9C1A87591BA3E6590040D999 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9C1A87581BA3E6590040D999 /* Images.xcassets */; };
 		9C1A875C1BA3E6590040D999 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9C1A875A1BA3E6590040D999 /* LaunchScreen.xib */; };
 		9C1A87681BA3E6590040D999 /* TaskMasterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C1A87671BA3E6590040D999 /* TaskMasterTests.swift */; };
+		9C827E3A1BA3F88500BC6518 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C827E391BA3F88500BC6518 /* LoginViewController.swift */; };
+		9C827E3C1BA3FCAC00BC6518 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C827E3B1BA3FCAC00BC6518 /* UserManager.swift */; };
 		F1500F3E1A5FD3961DCDF48B /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DDC3AB6C5D4407C1A13B85B /* Pods.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 /* End PBXBuildFile section */
 
@@ -38,6 +40,8 @@
 		9C1A87611BA3E6590040D999 /* TaskMasterTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TaskMasterTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9C1A87661BA3E6590040D999 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9C1A87671BA3E6590040D999 /* TaskMasterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskMasterTests.swift; sourceTree = "<group>"; };
+		9C827E391BA3F88500BC6518 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		9C827E3B1BA3FCAC00BC6518 /* UserManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		CFEB9B3379AFE40023D9F3B7 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		D84F8DB2E75BB7FB5619C022 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -107,6 +111,8 @@
 				9C1A87581BA3E6590040D999 /* Images.xcassets */,
 				9C1A875A1BA3E6590040D999 /* LaunchScreen.xib */,
 				9C1A874F1BA3E6590040D999 /* Supporting Files */,
+				9C827E391BA3F88500BC6518 /* LoginViewController.swift */,
+				9C827E3B1BA3FCAC00BC6518 /* UserManager.swift */,
 			);
 			path = TaskMaster;
 			sourceTree = "<group>";
@@ -287,6 +293,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9C827E3A1BA3F88500BC6518 /* LoginViewController.swift in Sources */,
+				9C827E3C1BA3FCAC00BC6518 /* UserManager.swift in Sources */,
 				9C1A87541BA3E6590040D999 /* ViewController.swift in Sources */,
 				9C1A87521BA3E6590040D999 /* AppDelegate.swift in Sources */,
 			);
