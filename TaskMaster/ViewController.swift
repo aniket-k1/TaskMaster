@@ -41,6 +41,20 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         if event.joined {
             self.selectedEvent = event
             performSegueWithIdentifier("eventDetail", sender: self)
+        } else {
+            var alertController = UIAlertController(title: "Join?", message: "Join this event and become available for taking tasks?", preferredStyle: UIAlertControllerStyle.Alert)
+            alertController.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
+                event.people.append(UserManager.sharedInstance.uid!)
+                
+                self.firebaseRoot.childByAppendingPath("/events/\(event.id)/people").setValue(event.people)
+                
+                self.selectedEvent = event
+                self.performSegueWithIdentifier("eventDetail", sender: self)
+            }))
+            alertController.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.Cancel, handler: { (action) -> Void in
+                alertController.dismissViewControllerAnimated(true, completion: nil)
+            }))
+            presentViewController(alertController, animated: true, completion: nil)
         }
     }
     
