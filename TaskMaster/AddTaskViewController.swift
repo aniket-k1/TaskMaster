@@ -35,12 +35,63 @@ class AddTaskViewController: UIViewController {
         var assignee: String;
         for (i, member) in enumerate(members) { }
         
+        // random person
+        task.assignee = Array(event!.people.keys)[Int(arc4random_uniform(UInt32(event!.people.count)))]
+        
+        var members2 : [String] = []
+        
+        var owner_id = event!.owner
+        
+        var highest_ongoing_tasks = Int()
+        
+        var firebaseEvent:Firebase = Firebase(url: "https://thetaskmaster.firebaseio.com/events/\(event!.id!)")
+        firebaseEvent.observeSingleEventOfType(.Value, withBlock: { snapshot in
+            let people = snapshot.value["people"] as? NSDictionary
+            
+            var counter:Int = 0;
+
+            for (key, value) in people! {
+                var completed:Int
+                var doing:Int
+                var busy:Bool
+                
+                if value["completed"] != nil {
+                    completed = value["completed"] as! Int
+                } else {
+                    completed = 0
+                }
+                
+                if value["doing"] != nil {
+                    doing = value["doing"] as! Int
+                } else {
+                    doing = 0
+                }
+
+                if value["busy"] != nil {
+                    busy = value["busy"] as! Bool
+                } else {
+                    busy = false
+                }
+                
+                if (counter == 0) {
+                   highest_ongoing_tasks = doing
+                }
+                
+                if (!busy && doing <= highest_ongoing_tasks) {
+                    members2.append(key as! String)
+                } else if (busy) {
+                    highest_ongoing_tasks = doing
+                }
+                counter++
+            }
+            println(members2)
+            //task.assignee = members2[Int(arc4random_uniform(UInt32(members2.count)))]
+        })
+        
         let config = NSURLSessionConfiguration.defaultSessionConfiguration()
         let auth = "Bearer WBS644TG2646OZ5QIJTU5R7PQF3G32PY"
         config.HTTPAdditionalHeaders = ["Authorization" : auth]
         let urlsess = NSURLSession(configuration: config)
-        task.assignee = ""
-        //task.onAssigned(event, nil)
         
         let url = NSURL(string: "https://api.wit.ai/message?v=20150912&q=\(task)&_t=291")
         let datatask = urlsess.dataTaskWithURL(url!) {
