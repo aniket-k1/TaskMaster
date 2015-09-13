@@ -51,6 +51,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                     "doing":0,
                     "assigned": []
                 ]
+                println("add event")
+                println(event.id)
+                UserManager.sharedInstance.eventArray.append(event.id)
+                println(UserManager.sharedInstance.eventArray.count)
                 
                 self.firebaseRoot.childByAppendingPath("/events/\(event.id!)/people").setValue(event.people)
                 
