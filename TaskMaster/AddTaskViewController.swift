@@ -54,6 +54,8 @@ class AddTaskViewController: UIViewController {
                 var completed:Int
                 var doing:Int
                 var busy:Bool
+                var assigned:[AnyObject]
+                var location:Int
                 
                 if value["completed"] != nil {
                     completed = value["completed"] as! Int
@@ -73,12 +75,28 @@ class AddTaskViewController: UIViewController {
                     busy = false
                 }
                 
+//                if value["assigned"] != nil {
+//                    assigned = value["assigned"] as! Array
+//                } else {
+//                    assigned = []
+//                }
+                
+                if value["location"] != nil {
+                    location = value["location"] as! Int
+                } else {
+                    location = 0
+                }
+                
                 if (counter == 0) {
                    highest_ongoing_tasks = doing
                 }
                 
                 if ( (!busy) && (doing <= highest_ongoing_tasks) ) {
-                    members2.append(key as! String)
+                    if (location == 3764) { // silver
+                        members2.append(key as! String)
+                    } else if (location == 6434) {
+                        members2.append(key as! String)
+                    }
                 } else if (busy) {
                     highest_ongoing_tasks = doing
                 }
@@ -95,18 +113,29 @@ class AddTaskViewController: UIViewController {
         config.HTTPAdditionalHeaders = ["Authorization" : auth]
         let urlsess = NSURLSession(configuration: config)
         
-        let url = NSURL(string: "https://api.wit.ai/message?v=20150912&q=\(task.title)&_t=291")
+        var titleNonEncode = task.title!
+        var titleEncode = titleNonEncode.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())!
+        let url = NSURL(string: "https://api.wit.ai/message?v=20150912&q=\(titleEncode)&_t=291")
         let datatask = urlsess.dataTaskWithURL(url!) {
             (data,response,error) in
-            if (error == nil) {
-                var urlContent = NSString(data: data, encoding:NSUTF8StringEncoding)
-                println(urlContent!)
-                dispatch_async(dispatch_get_main_queue()) {
-                    //println(data!)
-                }
+            if let jsonResult: AnyObject = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: nil){
+                
+                println(jsonResult)
+                println(jsonResult["outcomes"]!)
+                
             }
+//            if (error == nil) {
+//                var urlContent = NSString(data: data, encoding:NSUTF8StringEncoding)
+//                var urlcontarry = urlContent as! NSArray
+//                println(urlContent!)
+//                dispatch_async(dispatch_get_main_queue()) {
+//                    //println(data!)
+//                }
+//            }
         }
         datatask.resume()
+
+        
     }
 
     /*
