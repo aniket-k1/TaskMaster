@@ -77,7 +77,7 @@ class AddTaskViewController: UIViewController {
                    highest_ongoing_tasks = doing
                 }
                 
-                if (!busy && doing <= highest_ongoing_tasks) {
+                if ( (!busy) && (doing <= highest_ongoing_tasks) && (self.event!.owner != key as? String) ) {
                     members2.append(key as! String)
                 } else if (busy) {
                     highest_ongoing_tasks = doing
