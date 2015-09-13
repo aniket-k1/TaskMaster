@@ -36,7 +36,7 @@ class AddTaskViewController: UIViewController {
         for (i, member) in enumerate(members) { }
         
         // random person
-        task.assignee = Array(event!.people.keys)[Int(arc4random_uniform(UInt32(event!.people.count)))]
+        //task.assignee = Array(event!.people.keys)[Int(arc4random_uniform(UInt32(event!.people.count)))]
         
         var members2 : [String] = []
         
@@ -85,7 +85,10 @@ class AddTaskViewController: UIViewController {
                 counter++
             }
             println(members2)
-            //task.assignee = members2[Int(arc4random_uniform(UInt32(members2.count)))]
+            var taskAssignee = members2[Int(arc4random_uniform(UInt32(members2.count)))]
+            task.assignee = taskAssignee
+            newChild.setValue(task.toDict())
+            self.navigationController?.popViewControllerAnimated(true)
         })
         
         let config = NSURLSessionConfiguration.defaultSessionConfiguration()
@@ -105,10 +108,6 @@ class AddTaskViewController: UIViewController {
             }
         }
         datatask.resume()
-        
-        //task.assignee = event!.people[Int(arc4random_uniform(UInt32(event!.people.count)))]
-        newChild.setValue(task.toDict())
-        self.navigationController?.popViewControllerAnimated(true)
     }
 
     /*
