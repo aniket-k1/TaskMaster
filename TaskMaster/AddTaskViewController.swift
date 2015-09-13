@@ -33,7 +33,6 @@ class AddTaskViewController: UIViewController {
         task.state = TaskState.Backlog
         var members:NSArray = event!.people.keys.array
         var assignee: String;
-        for (i, member) in enumerate(members) { }
         
         // random person
         //task.assignee = Array(event!.people.keys)[Int(arc4random_uniform(UInt32(event!.people.count)))]
@@ -55,7 +54,7 @@ class AddTaskViewController: UIViewController {
                 var doing:Int
                 var busy:Bool
                 var assigned:[AnyObject]
-                var location:NSNumber
+                var location_beacon:NSNumber
                 
                 if value["completed"] != nil {
                     completed = value["completed"] as! Int
@@ -82,9 +81,9 @@ class AddTaskViewController: UIViewController {
 //                }
                 
                 if value["location"] as? Int != nil {
-                    location = value["location"] as! Int
+                    location_beacon = value["location"] as! Int
                 } else {
-                    location = 0
+                    location_beacon = 0
                 }
                 
                 if (counter == 0) {
@@ -92,45 +91,67 @@ class AddTaskViewController: UIViewController {
                 }
                 
                 if ( (!busy) && (doing <= highest_ongoing_tasks) ) {
-                    if (location == 3764) { // silver
-                        members2.append(key as! String)
-                    } else if (location == 6434) {
-                        members2.append(key as! String)
+                    
+                    let config = NSURLSessionConfiguration.defaultSessionConfiguration()
+                    let auth = "Bearer LKKKYZ6G5JJRHW2FELNNIEHRN6VZLUXK"
+                    config.HTTPAdditionalHeaders = ["Authorization" : auth]
+                    let urlsess = NSURLSession(configuration: config)
+                    
+                    var titleNonEncode = task.title!
+                    var titleEncode = titleNonEncode.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())!
+                    let url = NSURL(string: "https://api.wit.ai/message?v=20150913&q=\(titleEncode)&_t=291")
+                    let datatask = urlsess.dataTaskWithURL(url!) {
+                        (data,response,error) in
+                        if let jsonResult: AnyObject = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: nil){
+                            
+                            println(jsonResult)
+                            var outcomes = jsonResult["outcomes"] as! [[String:AnyObject]]
+                            var entities = outcomes[0]["entities"] as? [String:AnyObject]
+                            var from = entities?["from"] as? [[String:AnyObject]]
+                            if (from == nil) || (from!.count == 0) {
+                                members2.append(key as! String)
+                                return
+                            }
+                            var location = from?[0]["value"] as? String
+                            
+                            if location != nil {
+                                switch location! {
+                                    case "auditorium", "office", "iOS Cortex", "BBB", "EECS":
+                                        if (location_beacon == 3764) {
+                                            members2.append(key as! String)
+                                        }
+                                    case "hall", "classroom", "Android Cortex", "Parking Lot":
+                                        if (location_beacon == 6434) {
+                                            members2.append(key as! String)
+                                        }
+                                    default:
+                                        members2.append(key as! String)
+                                }
+                            } else {
+                                members2.append(key as! String)
+                            }
+                        }
                     }
+                    datatask.resume()
                 } else if (busy) {
                     highest_ongoing_tasks = doing
                 }
                 counter++
             }
-            //println(members2)
-            task.assignee = members2[Int(arc4random_uniform(UInt32(members2.count)))]
+            println(members2)
+            if members2.count > 0 {
+                task.assignee = members2[Int(arc4random_uniform(UInt32(members2.count)))]
+                task.key = newChild.key
+                task.onAssigned(self.event!)
+
+            } else {
+                task.assignee = ""
+            }
             newChild.setValue(task.toDict())
-            task.key = newChild.key
-            task.onAssigned(self.event!)
             self.navigationController?.popViewControllerAnimated(true)
         })
         
-        let config = NSURLSessionConfiguration.defaultSessionConfiguration()
-        let auth = "Bearer LKKKYZ6G5JJRHW2FELNNIEHRN6VZLUXK"
-        config.HTTPAdditionalHeaders = ["Authorization" : auth]
-        let urlsess = NSURLSession(configuration: config)
         
-        var titleNonEncode = task.title!
-        var titleEncode = titleNonEncode.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())!
-        let url = NSURL(string: "https://api.wit.ai/message?v=20150913&q=\(titleEncode)&_t=291")
-        let datatask = urlsess.dataTaskWithURL(url!) {
-            (data,response,error) in
-            if let jsonResult: AnyObject = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: nil){
-                
-                //println(jsonResult)
-                var outcomes = jsonResult["outcomes"] as! [[String:AnyObject]]
-                var entities = outcomes[0]["entities"] as? [String:AnyObject]
-                var from = entities?["from"] as? [[String:AnyObject]]
-                println(from?[0]["value"] as? String)
-                
-            }
-        }
-        datatask.resume()
 
         
     }
