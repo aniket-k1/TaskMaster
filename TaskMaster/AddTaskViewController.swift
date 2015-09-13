@@ -113,6 +113,8 @@ class AddTaskViewController: UIViewController {
                             if (from == nil) || (from!.count == 0) {
                                 task.assignee = key as! String
                                 task.onAssigned(self.event!)
+                                newChild.setValue(task.toDict())
+                                self.navigationController?.popViewControllerAnimated(true)
                                 return
                             }
                             var location = from?[0]["value"] as? String
