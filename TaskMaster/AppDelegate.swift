@@ -94,7 +94,7 @@ extension AppDelegate: CLLocationManagerDelegate {
             var message:String = ""
         
             abeacons = beacons
-            println("abeacons: ", abeacons.count)
+            //println("abeacons: ", abeacons.count)
         
             if(beacons.count > 0) {
                 let nearestBeacon:CLBeacon = beacons[0] as! CLBeacon

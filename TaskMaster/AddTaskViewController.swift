@@ -31,9 +31,9 @@ class AddTaskViewController: UIViewController {
         var task:Task = Task()
         task.title = inputTaskName.text
         task.state = TaskState.Backlog
+        task.key = newChild.key
         var members:NSArray = event!.people.keys.array
         var assignee: String;
-        for (i, member) in enumerate(members) { }
         
         // random person
         //task.assignee = Array(event!.people.keys)[Int(arc4random_uniform(UInt32(event!.people.count)))]
@@ -54,6 +54,8 @@ class AddTaskViewController: UIViewController {
                 var completed:Int
                 var doing:Int
                 var busy:Bool
+                var assigned:[AnyObject]
+                var location_beacon:NSNumber
                 
                 if value["completed"] != nil {
                     completed = value["completed"] as! Int
@@ -73,12 +75,79 @@ class AddTaskViewController: UIViewController {
                     busy = false
                 }
                 
+//                if value["assigned"] != nil {
+//                    assigned = value["assigned"] as! Array
+//                } else {
+//                    assigned = []
+//                }
+                
+                if value["location"] as? Int != nil {
+                    location_beacon = value["location"] as! Int
+                } else {
+                    location_beacon = 0
+                }
+                
                 if (counter == 0) {
                    highest_ongoing_tasks = doing
                 }
                 
                 if ( (!busy) && (doing <= highest_ongoing_tasks) ) {
-                    members2.append(key as! String)
+                    
+                    let config = NSURLSessionConfiguration.defaultSessionConfiguration()
+                    let auth = "Bearer LKKKYZ6G5JJRHW2FELNNIEHRN6VZLUXK"
+                    config.HTTPAdditionalHeaders = ["Authorization" : auth]
+                    let urlsess = NSURLSession(configuration: config)
+                    
+                    var titleNonEncode = task.title!
+                    var titleEncode = titleNonEncode.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())!
+                    let url = NSURL(string: "https://api.wit.ai/message?v=20150913&q=\(titleEncode)&_t=291")
+                    let datatask = urlsess.dataTaskWithURL(url!) {
+                        (data,response,error) in
+                        var error2:NSError?
+                        if let jsonResult: AnyObject = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: &error2){
+                            
+                            println(jsonResult)
+                            var outcomes = jsonResult["outcomes"] as! [[String:AnyObject]]
+                            var entities = outcomes[0]["entities"] as? [String:AnyObject]
+                            var from = entities?["from"] as? [[String:AnyObject]]
+                            if (from == nil) || (from!.count == 0) {
+                                task.assignee = key as! String
+                                task.onAssigned(self.event!)
+                                newChild.setValue(task.toDict())
+                                self.navigationController?.popViewControllerAnimated(true)
+                                return
+                            }
+                            var location = from?[0]["value"] as? String
+                            
+                            if location != nil {
+                                switch location! {
+                                    case "auditorium", "office", "iOS Cortex", "BBB", "EECS":
+                                        if (location_beacon == 3764) {
+                                            task.assignee = key as! String
+                                            task.onAssigned(self.event!)
+                                        }
+                                    case "hall", "classroom", "Android Cortex", "Parking Lot":
+                                        if (location_beacon == 6434) {
+                                            task.assignee = key as! String
+                                            task.onAssigned(self.event!)
+                                        }
+                                    default:
+                                        task.assignee = key as! String
+                                        task.onAssigned(self.event!)
+                                    
+                                }
+                            } else {
+                                task.assignee = key as! String
+                                task.onAssigned(self.event!)
+
+                            }
+                            newChild.setValue(task.toDict())
+                            self.navigationController?.popViewControllerAnimated(true)
+                        } else {
+                            println(error)
+                        }
+                    }
+                    datatask.resume()
                 } else if (busy) {
                     highest_ongoing_tasks = doing
                 }
@@ -113,7 +182,6 @@ class AddTaskViewController: UIViewController {
             datatask.resume()
             self.navigationController?.popViewControllerAnimated(true)
         })
-       
     }
 
     /*
