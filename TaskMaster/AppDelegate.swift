@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Wit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -15,6 +16,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        Wit.sharedInstance().accessToken = "KGU3BRZ5IY37QT6R3BNCQ4RB6O7VKW6T"
+        Wit.sharedInstance().detectSpeechStop = WITVadConfig.DetectSpeechStop
         return true
     }
 

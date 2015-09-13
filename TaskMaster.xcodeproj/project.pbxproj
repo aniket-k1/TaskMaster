@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6001C90B1BA5007A00800CCC /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6001C90A1BA5007A00800CCC /* AVFoundation.framework */; };
 		9C1A87521BA3E6590040D999 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C1A87511BA3E6590040D999 /* AppDelegate.swift */; };
 		9C1A87541BA3E6590040D999 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C1A87531BA3E6590040D999 /* ViewController.swift */; };
 		9C1A87571BA3E6590040D999 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9C1A87551BA3E6590040D999 /* Main.storyboard */; };
@@ -36,6 +37,7 @@
 
 /* Begin PBXFileReference section */
 		1DDC3AB6C5D4407C1A13B85B /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6001C90A1BA5007A00800CCC /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		9C1A874C1BA3E6590040D999 /* TaskMaster.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TaskMaster.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9C1A87501BA3E6590040D999 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9C1A87511BA3E6590040D999 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -63,6 +65,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6001C90B1BA5007A00800CCC /* AVFoundation.framework in Frameworks */,
 				F1500F3E1A5FD3961DCDF48B /* Pods.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -80,6 +83,7 @@
 		15594812BF71FC0D155195DF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6001C90A1BA5007A00800CCC /* AVFoundation.framework */,
 				1DDC3AB6C5D4407C1A13B85B /* Pods.framework */,
 			);
 			name = Frameworks;
