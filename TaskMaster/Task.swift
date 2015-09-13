@@ -31,11 +31,16 @@ class Task {
     }
     
     func toDict() -> [String:AnyObject] {
-        return [
+        var result:[String:AnyObject] =  [
             "title": self.title!,
-            "assignee": self.assignee!,
             "state": self.state.rawValue
         ]
+        if self.assignee != nil {
+            result["assignee"] = self.assignee!
+        } else {
+            result["assignee"] = nil
+        }
+        return result
     }
     
     func onAssigned(event: Event) {
