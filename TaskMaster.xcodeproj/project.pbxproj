@@ -13,6 +13,7 @@
 		9C1A87591BA3E6590040D999 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9C1A87581BA3E6590040D999 /* Images.xcassets */; };
 		9C1A875C1BA3E6590040D999 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9C1A875A1BA3E6590040D999 /* LaunchScreen.xib */; };
 		9C1A87681BA3E6590040D999 /* TaskMasterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C1A87671BA3E6590040D999 /* TaskMasterTests.swift */; };
+		9C2939921BA4F16F0090A965 /* TaskDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2939911BA4F16F0090A965 /* TaskDetailViewController.swift */; };
 		9C827E3A1BA3F88500BC6518 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C827E391BA3F88500BC6518 /* LoginViewController.swift */; };
 		9C827E3C1BA3FCAC00BC6518 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C827E3B1BA3FCAC00BC6518 /* UserManager.swift */; };
 		9CF0CF931BA45EBD005E15A4 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF0CF921BA45EBD005E15A4 /* Event.swift */; };
@@ -45,6 +46,7 @@
 		9C1A87611BA3E6590040D999 /* TaskMasterTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TaskMasterTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9C1A87661BA3E6590040D999 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9C1A87671BA3E6590040D999 /* TaskMasterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskMasterTests.swift; sourceTree = "<group>"; };
+		9C2939911BA4F16F0090A965 /* TaskDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskDetailViewController.swift; sourceTree = "<group>"; };
 		9C827E391BA3F88500BC6518 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		9C827E3B1BA3FCAC00BC6518 /* UserManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		9CF0CF921BA45EBD005E15A4 /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
@@ -128,6 +130,7 @@
 				9CF0CF961BA498FA005E15A4 /* EventDetailViewController.swift */,
 				9CF0CF981BA4A6D6005E15A4 /* Task.swift */,
 				9CF0CF9A1BA4D225005E15A4 /* AddTaskViewController.swift */,
+				9C2939911BA4F16F0090A965 /* TaskDetailViewController.swift */,
 			);
 			path = TaskMaster;
 			sourceTree = "<group>";
@@ -312,6 +315,7 @@
 				9C827E3A1BA3F88500BC6518 /* LoginViewController.swift in Sources */,
 				9CF0CF951BA4790D005E15A4 /* AddEventViewController.swift in Sources */,
 				9C827E3C1BA3FCAC00BC6518 /* UserManager.swift in Sources */,
+				9C2939921BA4F16F0090A965 /* TaskDetailViewController.swift in Sources */,
 				9C1A87541BA3E6590040D999 /* ViewController.swift in Sources */,
 				9C1A87521BA3E6590040D999 /* AppDelegate.swift in Sources */,
 				9CF0CF971BA498FA005E15A4 /* EventDetailViewController.swift in Sources */,

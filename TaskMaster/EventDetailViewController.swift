@@ -17,6 +17,8 @@ class EventDetailViewController: UITableViewController, UITableViewDelegate, UIT
     var done:[Task] = []
     var firebaseRoot:Firebase = Firebase(url: "https://thetaskmaster.firebaseio.com/tasks")
     
+    var selectedTask:Task?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -86,7 +88,15 @@ class EventDetailViewController: UITableViewController, UITableViewDelegate, UIT
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        if indexPath.section == 0 {
+            selectedTask = backlog[indexPath.row]
+        } else if indexPath.section == 1 {
+            selectedTask = inProgress[indexPath.row]
+        } else {
+            selectedTask = done[indexPath.row]
+        }
         
+        performSegueWithIdentifier("taskDetailSegue", sender: self)
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -144,7 +154,11 @@ class EventDetailViewController: UITableViewController, UITableViewDelegate, UIT
         // Pass the selected object to the new view controller.
         super.prepareForSegue(segue, sender: sender)
         
-        (segue.destinationViewController as! AddTaskViewController).event = self.event
+        if segue.identifier == "taskDetailSegue" {
+            (segue.destinationViewController as! TaskDetailViewController).task = self.selectedTask
+        } else {
+            (segue.destinationViewController as! AddTaskViewController).event = self.event
+        }
     }
     
 
