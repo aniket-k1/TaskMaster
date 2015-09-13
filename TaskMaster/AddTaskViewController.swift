@@ -95,7 +95,7 @@ class AddTaskViewController: UIViewController {
         config.HTTPAdditionalHeaders = ["Authorization" : auth]
         let urlsess = NSURLSession(configuration: config)
         
-        let url = NSURL(string: "https://api.wit.ai/message?v=20150912&q=\(task)&_t=291")
+        let url = NSURL(string: "https://api.wit.ai/message?v=20150912&q=\(task.title)&_t=291")
         let datatask = urlsess.dataTaskWithURL(url!) {
             (data,response,error) in
             if (error == nil) {
