@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Firebase
 
 enum TaskState:Int {
     case Backlog
@@ -35,5 +36,43 @@ class Task {
             "assignee": self.assignee!,
             "state": self.state.rawValue
         ]
+    }
+    
+    func onAssigned(event: Event, uid:String) {
+        // TODO
+        var assignedList = event.people[uid]!["assigned"] as! [String]
+        assignedList.append(self.key!)
+        (event.people[uid]!)["assigned"] = assignedList
+            
+        var firebaseRoot:Firebase = Firebase(url: "https://thetaskmaster.firebaseio.com")
+        firebaseRoot.childByAppendingPath("/events/\(event.id!)/people").setValue(event.people)
+    }
+    
+    func transitionStateForward(event: Event) {
+        if self.state == TaskState.Backlog {
+            self.state = TaskState.InProgress
+            if self.assignee != nil && count(self.assignee!) > 0 {
+                event.people[self.assignee!]!["busy"] = true
+                var doing = (event.people[self.assignee!]!)["doing"] as! Int
+                event.people[self.assignee!]!["doing"] = ++doing
+            }
+            event.syncPeople()
+        } else if self.state == TaskState.InProgress {
+            self.state = TaskState.Done
+            if self.assignee != nil && count(self.assignee!) > 0 {
+                var doing = (event.people[self.assignee!]!)["doing"] as! Int
+                event.people[self.assignee!]!["doing"] = --doing
+                var completed = (event.people[self.assignee!]!)["completed"] as! Int
+                event.people[self.assignee!]!["completed"] = ++completed
+            
+                if (doing == 0) {
+                    event.people[self.assignee!]!["busy"] = false
+                }
+            }
+            
+            event.syncPeople()
+        }
+        var firebaseRoot:Firebase = Firebase(url: "https://thetaskmaster.firebaseio.com/tasks/\(event.id!)/\(self.key!)/state")
+        firebaseRoot.setValue(self.state.rawValue)
     }
 }

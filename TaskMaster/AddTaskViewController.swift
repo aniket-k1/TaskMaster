@@ -31,13 +31,14 @@ class AddTaskViewController: UIViewController {
         var task:Task = Task()
         task.title = inputTaskName.text
         task.state = TaskState.Backlog
-        var members:NSArray = event!.people
+        var members:NSArray = event!.people.keys.array
         var assignee: String;
         for (i, member) in enumerate(members) {
           
         }
         
         task.assignee = ""
+        //task.onAssigned(event, nil)
         
         newChild.setValue(task.toDict())
         

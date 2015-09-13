@@ -19,7 +19,12 @@ class AddEventViewController : UIViewController {
         var event:Event = Event()
         event.name = inputName.text
         event.owner = UserManager.sharedInstance.uid
-        event.people = [UserManager.sharedInstance.uid!]
+        event.people = [UserManager.sharedInstance.uid!:[
+            "busy":false,
+            "completed":0,
+            "doing":0,
+            "assigned": []
+        ]]
         newChild.setValue(event.toDict())
         
         self.navigationController?.popViewControllerAnimated(true)

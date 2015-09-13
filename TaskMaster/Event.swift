@@ -7,12 +7,13 @@
 //
 
 import Foundation
+import Firebase
 
 class Event {
     var id:String?
     var name:String?
     var owner:String?
-    var people:[String] = []
+    var people:[String:[String:AnyObject]] = [:]
     var joined:Bool = false
     
     class func parse(key: String?, input: [String:AnyObject]) -> Event {
@@ -20,9 +21,9 @@ class Event {
         event.id = key
         event.name = input["name"] as? String
         event.owner = input["owner"] as? String
-        event.people = input["people"] as! [String]
+        event.people = input["people"] as! [String:[String:AnyObject]]
         if UserManager.sharedInstance.uid != nil &&
-            contains((input["people"] as! [String]), UserManager.sharedInstance.uid!) &&
+            event.people[UserManager.sharedInstance.uid!] != nil &&
             UserManager.sharedInstance.loggedIn == true {
             event.joined = true
         }
@@ -37,5 +38,9 @@ class Event {
         ]
         
         return returnValue
+    }
+    func syncPeople() {
+        var firebaseRoot:Firebase = Firebase(url: "https://thetaskmaster.firebaseio.com/events/\(self.id!)/people/")
+        firebaseRoot.setValue(self.people)
     }
 }
