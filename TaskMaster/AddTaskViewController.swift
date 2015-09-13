@@ -33,14 +33,29 @@ class AddTaskViewController: UIViewController {
         task.state = TaskState.Backlog
         var members:NSArray = event!.people
         var assignee: String;
-        for (i, member) in enumerate(members) {
-          
+        for (i, member) in enumerate(members) { }
+        
+        let config = NSURLSessionConfiguration.defaultSessionConfiguration()
+        let auth = "Bearer WBS644TG2646OZ5QIJTU5R7PQF3G32PY"
+        config.HTTPAdditionalHeaders = ["Authorization" : auth]
+        let urlsess = NSURLSession(configuration: config)
+        
+        let url = NSURL(string: "https://api.wit.ai/message?v=20150912&q=\(task)&_t=291")
+        let datatask = urlsess.dataTaskWithURL(url!) {
+            (data,response,error) in
+            if (error == nil) {
+                var urlContent = NSString(data: data, encoding:NSUTF8StringEncoding)
+                println(urlContent!)
+                dispatch_async(dispatch_get_main_queue()) {
+                    //println(data!)
+                }
+            }
         }
+        datatask.resume()
         
-        task.assignee = ""
-        
+        //task.assignee = ""
+        task.assignee = event!.people[Int(arc4random_uniform(UInt32(event!.people.count)))]
         newChild.setValue(task.toDict())
-        
         self.navigationController?.popViewControllerAnimated(true)
     }
 
