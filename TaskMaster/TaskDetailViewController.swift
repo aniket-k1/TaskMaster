@@ -29,12 +29,26 @@ class TaskDetailViewController: UITableViewController, UITableViewDelegate {
         self.tableView.delegate = self
         
     }
+    func getEmailAddress(input:String) -> String {
+        var dictionary:[String:String] = [
+            "5d67075e-a3e0-4ac4-a90d-f11289f43d3b": "Bilal",
+            "9c366979-4080-4041-8eb9-1a9b160f0b0d": "Aniket",
+            "3d218e2c-edfd-4b77-b488-076f51fbf723": "Kashav"
+        ]
+        return dictionary[input]!
+    }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
         titleLabel.text = task?.title
-        assigneeLabel.text = "Assigned to \(task!.assignee!)"
+        if task?.assignee == UserManager.sharedInstance.uid {
+            assigneeLabel.text = "Assigned to you"
+        } else if (count(task!.assignee!) > 0) {
+            // Gotta look it up
+            var firebaseEvent:Firebase = Firebase(url: "https://thetaskmaster.firebaseio.com/events/\(event!.id!)")
+            assigneeLabel.text = "Assigned to \(getEmailAddress(task!.assignee!))"
+        }
         movetoLabel.text = task?.state == TaskState.InProgress ? "Complete Task" : "Move to In Progress"
         
         if task?.state == TaskState.Done {
