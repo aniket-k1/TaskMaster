@@ -89,7 +89,7 @@ class AddTaskViewController: UIViewController {
             newChild.setValue(task.toDict())
             task.key = newChild.key
             task.onAssigned(self.event!)
-            //self.navigationController?.popViewControllerAnimated(true)
+            self.navigationController?.popViewControllerAnimated(true)
         })
         
         let config = NSURLSessionConfiguration.defaultSessionConfiguration()
