@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		6001C90B1BA5007A00800CCC /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6001C90A1BA5007A00800CCC /* AVFoundation.framework */; };
+		6001C90D1BA5081C00800CCC /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6001C90C1BA5081C00800CCC /* CoreLocation.framework */; };
+		6001C90F1BA50E8A00800CCC /* BeaconsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6001C90E1BA50E8A00800CCC /* BeaconsView.swift */; };
+		6001C9111BA5111100800CCC /* Beacon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6001C9101BA5111100800CCC /* Beacon.swift */; };
 		9C1A87521BA3E6590040D999 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C1A87511BA3E6590040D999 /* AppDelegate.swift */; };
 		9C1A87541BA3E6590040D999 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C1A87531BA3E6590040D999 /* ViewController.swift */; };
 		9C1A87571BA3E6590040D999 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9C1A87551BA3E6590040D999 /* Main.storyboard */; };
@@ -38,6 +41,9 @@
 /* Begin PBXFileReference section */
 		1DDC3AB6C5D4407C1A13B85B /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6001C90A1BA5007A00800CCC /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		6001C90C1BA5081C00800CCC /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		6001C90E1BA50E8A00800CCC /* BeaconsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BeaconsView.swift; sourceTree = "<group>"; };
+		6001C9101BA5111100800CCC /* Beacon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Beacon.swift; sourceTree = "<group>"; };
 		9C1A874C1BA3E6590040D999 /* TaskMaster.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TaskMaster.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9C1A87501BA3E6590040D999 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9C1A87511BA3E6590040D999 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -65,6 +71,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6001C90D1BA5081C00800CCC /* CoreLocation.framework in Frameworks */,
 				6001C90B1BA5007A00800CCC /* AVFoundation.framework in Frameworks */,
 				F1500F3E1A5FD3961DCDF48B /* Pods.framework in Frameworks */,
 			);
@@ -83,6 +90,7 @@
 		15594812BF71FC0D155195DF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6001C90C1BA5081C00800CCC /* CoreLocation.framework */,
 				6001C90A1BA5007A00800CCC /* AVFoundation.framework */,
 				1DDC3AB6C5D4407C1A13B85B /* Pods.framework */,
 			);
@@ -130,6 +138,8 @@
 				9C827E391BA3F88500BC6518 /* LoginViewController.swift */,
 				9C827E3B1BA3FCAC00BC6518 /* UserManager.swift */,
 				9CF0CF921BA45EBD005E15A4 /* Event.swift */,
+				6001C9101BA5111100800CCC /* Beacon.swift */,
+				6001C90E1BA50E8A00800CCC /* BeaconsView.swift */,
 				9CF0CF941BA4790D005E15A4 /* AddEventViewController.swift */,
 				9CF0CF961BA498FA005E15A4 /* EventDetailViewController.swift */,
 				9CF0CF981BA4A6D6005E15A4 /* Task.swift */,
@@ -320,11 +330,13 @@
 				9CF0CF951BA4790D005E15A4 /* AddEventViewController.swift in Sources */,
 				9C827E3C1BA3FCAC00BC6518 /* UserManager.swift in Sources */,
 				9C2939921BA4F16F0090A965 /* TaskDetailViewController.swift in Sources */,
+				6001C90F1BA50E8A00800CCC /* BeaconsView.swift in Sources */,
 				9C1A87541BA3E6590040D999 /* ViewController.swift in Sources */,
 				9C1A87521BA3E6590040D999 /* AppDelegate.swift in Sources */,
 				9CF0CF971BA498FA005E15A4 /* EventDetailViewController.swift in Sources */,
 				9CF0CF9B1BA4D225005E15A4 /* AddTaskViewController.swift in Sources */,
 				9CF0CF931BA45EBD005E15A4 /* Event.swift in Sources */,
+				6001C9111BA5111100800CCC /* Beacon.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
