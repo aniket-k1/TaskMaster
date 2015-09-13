@@ -55,7 +55,7 @@ class AddTaskViewController: UIViewController {
                 var doing:Int
                 var busy:Bool
                 var assigned:[AnyObject]
-                var location:Int
+                var location:NSNumber
                 
                 if value["completed"] != nil {
                     completed = value["completed"] as! Int
@@ -82,7 +82,7 @@ class AddTaskViewController: UIViewController {
 //                }
                 
                 if value["location"] != nil {
-                    location = value["location"] as! Int
+                    location = value["location"] as! NSNumber
                 } else {
                     location = 0
                 }
@@ -102,7 +102,7 @@ class AddTaskViewController: UIViewController {
                 }
                 counter++
             }
-            println(members2)
+            //println(members2)
             task.assignee = members2[Int(arc4random_uniform(UInt32(members2.count)))]
             newChild.setValue(task.toDict())
             task.key = newChild.key
@@ -122,18 +122,13 @@ class AddTaskViewController: UIViewController {
             (data,response,error) in
             if let jsonResult: AnyObject = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: nil){
                 
-                println(jsonResult)
-                println(jsonResult["outcomes"]!)
+                //println(jsonResult)
+                var outcomes = jsonResult["outcomes"]! as! NSArray
+                var entities = outcomes[0]["entities"]! as! NSDictionary
+                var from = entities["from"]! as! NSArray
+                println(from)
                 
             }
-//            if (error == nil) {
-//                var urlContent = NSString(data: data, encoding:NSUTF8StringEncoding)
-//                var urlcontarry = urlContent as! NSArray
-//                println(urlContent!)
-//                dispatch_async(dispatch_get_main_queue()) {
-//                    //println(data!)
-//                }
-//            }
         }
         datatask.resume()
 
