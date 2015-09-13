@@ -56,13 +56,8 @@ class TaskDetailViewController: UITableViewController, UITableViewDelegate {
         switch indexPath.row {
         case 0:
             // Move to next state
-            if task!.state == TaskState.Backlog {
-                task!.state = TaskState.InProgress
-            } else if task!.state == TaskState.InProgress {
-                task!.state = TaskState.Done
-            }
-            var firebaseRoot:Firebase = Firebase(url: "https://thetaskmaster.firebaseio.com/tasks/\(event!.id!)/\(task!.key!)/state")
-            firebaseRoot.setValue(task!.state.rawValue)
+            task!.transitionStateForward(event!)
+            
         case 1:
             // Defer
             // TODO

@@ -44,7 +44,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         } else {
             var alertController = UIAlertController(title: "Join?", message: "Join this event and become available for taking tasks?", preferredStyle: UIAlertControllerStyle.Alert)
             alertController.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
-                event.people.append(UserManager.sharedInstance.uid!)
+                event.people[UserManager.sharedInstance.uid!] = [
+                    "busy":false,
+                    "completed":0,
+                    "doing":0,
+                    "assigned": []
+                ]
                 
                 self.firebaseRoot.childByAppendingPath("/events/\(event.id!)/people").setValue(event.people)
                 
