@@ -34,6 +34,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         return events.count
     }
     
+    // change HERE
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         println("\(events[indexPath.row].name) was selected")
         
