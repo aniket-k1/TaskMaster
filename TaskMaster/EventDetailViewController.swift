@@ -66,11 +66,8 @@ class EventDetailViewController: UITableViewController, UITableViewDelegate, UIT
         
         firebaseRoot.childByAppendingPath("events/\(event!.id!)/people/\(UserManager.sharedInstance.uid!)/assigned/").observeEventType(FEventType.ChildAdded, withBlock: { (snapshot) -> Void in
             self.firebaseRoot.childByAppendingPath("tasks/\(self.event!.id!)/\(snapshot.value!)").observeSingleEventOfType(FEventType.Value, withBlock: { (snapshot2) -> Void in
-                var notification:UILocalNotification = UILocalNotification()
-                notification.fireDate = NSDate(timeIntervalSinceNow: 1)
-                notification.alertBody = "You have been assigned a new task: " + (snapshot2.value["title"] as! String)
-                notification.timeZone = NSTimeZone.defaultTimeZone()
-                UIApplication.sharedApplication().scheduleLocalNotification(notification)
+                var alert:UIAlertView = UIAlertView(title: "New task", message: "You have been assigned a new task: " + (snapshot2.value["title"] as! String), delegate: self, cancelButtonTitle: "Ok")
+                alert.show()
             })
             
         })

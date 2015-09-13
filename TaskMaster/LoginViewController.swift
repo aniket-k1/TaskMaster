@@ -32,6 +32,9 @@ class LoginViewController : UIViewController {
             
             ref.observeEventType(.Value, withBlock: { snapshot in
                 //println(snapshot.value)
+                if snapshot.value == nil {
+                    return
+                }
                 
                 var result = snapshot.value as! Dictionary<String, AnyObject>
                 
