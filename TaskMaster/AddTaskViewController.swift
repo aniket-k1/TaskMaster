@@ -31,6 +31,7 @@ class AddTaskViewController: UIViewController {
         var task:Task = Task()
         task.title = inputTaskName.text
         task.state = TaskState.Backlog
+        task.key = newChild.key
         var members:NSArray = event!.people.keys.array
         var assignee: String;
         
@@ -102,14 +103,16 @@ class AddTaskViewController: UIViewController {
                     let url = NSURL(string: "https://api.wit.ai/message?v=20150913&q=\(titleEncode)&_t=291")
                     let datatask = urlsess.dataTaskWithURL(url!) {
                         (data,response,error) in
-                        if let jsonResult: AnyObject = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: nil){
+                        var error2:NSError?
+                        if let jsonResult: AnyObject = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: &error2){
                             
                             println(jsonResult)
                             var outcomes = jsonResult["outcomes"] as! [[String:AnyObject]]
                             var entities = outcomes[0]["entities"] as? [String:AnyObject]
                             var from = entities?["from"] as? [[String:AnyObject]]
                             if (from == nil) || (from!.count == 0) {
-                                members2.append(key as! String)
+                                task.assignee = key as! String
+                                task.onAssigned(self.event!)
                                 return
                             }
                             var location = from?[0]["value"] as? String
@@ -118,18 +121,28 @@ class AddTaskViewController: UIViewController {
                                 switch location! {
                                     case "auditorium", "office", "iOS Cortex", "BBB", "EECS":
                                         if (location_beacon == 3764) {
-                                            members2.append(key as! String)
+                                            task.assignee = key as! String
+                                            task.onAssigned(self.event!)
                                         }
                                     case "hall", "classroom", "Android Cortex", "Parking Lot":
                                         if (location_beacon == 6434) {
-                                            members2.append(key as! String)
+                                            task.assignee = key as! String
+                                            task.onAssigned(self.event!)
                                         }
                                     default:
-                                        members2.append(key as! String)
+                                        task.assignee = key as! String
+                                        task.onAssigned(self.event!)
+                                    
                                 }
                             } else {
-                                members2.append(key as! String)
+                                task.assignee = key as! String
+                                task.onAssigned(self.event!)
+
                             }
+                            newChild.setValue(task.toDict())
+                            self.navigationController?.popViewControllerAnimated(true)
+                        } else {
+                            println(error)
                         }
                     }
                     datatask.resume()
@@ -138,17 +151,6 @@ class AddTaskViewController: UIViewController {
                 }
                 counter++
             }
-            println(members2)
-            if members2.count > 0 {
-                task.assignee = members2[Int(arc4random_uniform(UInt32(members2.count)))]
-                task.key = newChild.key
-                task.onAssigned(self.event!)
-
-            } else {
-                task.assignee = ""
-            }
-            newChild.setValue(task.toDict())
-            self.navigationController?.popViewControllerAnimated(true)
         })
         
         
