@@ -89,26 +89,31 @@ class AddTaskViewController: UIViewController {
             newChild.setValue(task.toDict())
             task.key = newChild.key
             task.onAssigned(self.event!)
-            self.navigationController?.popViewControllerAnimated(true)
-        })
-        
-        let config = NSURLSessionConfiguration.defaultSessionConfiguration()
-        let auth = "Bearer WBS644TG2646OZ5QIJTU5R7PQF3G32PY"
-        config.HTTPAdditionalHeaders = ["Authorization" : auth]
-        let urlsess = NSURLSession(configuration: config)
-        
-        let url = NSURL(string: "https://api.wit.ai/message?v=20150912&q=\(task)&_t=291")
-        let datatask = urlsess.dataTaskWithURL(url!) {
-            (data,response,error) in
-            if (error == nil) {
-                var urlContent = NSString(data: data, encoding:NSUTF8StringEncoding)
-                println(urlContent!)
-                dispatch_async(dispatch_get_main_queue()) {
-                    //println(data!)
+            
+            let config = NSURLSessionConfiguration.defaultSessionConfiguration()
+            let auth = "Bearer WBS644TG2646OZ5QIJTU5R7PQF3G32PY"
+            config.HTTPAdditionalHeaders = ["Authorization" : auth]
+            let urlsess = NSURLSession(configuration: config)
+            
+            let url = NSURL(string: "https://api.wit.ai/message?v=20150912&q=\(task)&_t=291")
+            if (url == nil)
+            {
+                println("url is nil")
+            }
+            let datatask = urlsess.dataTaskWithURL(url!) {
+                (data,response,error) in
+                if (error == nil) {
+                    var urlContent = NSString(data: data, encoding:NSUTF8StringEncoding)
+                    println(urlContent!)
+                    dispatch_async(dispatch_get_main_queue()) {
+                        //println(data!)
+                    }
                 }
             }
-        }
-        datatask.resume()
+            datatask.resume()
+            self.navigationController?.popViewControllerAnimated(true)
+        })
+       
     }
 
     /*

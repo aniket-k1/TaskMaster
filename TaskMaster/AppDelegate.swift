@@ -102,8 +102,8 @@ extension AppDelegate: CLLocationManagerDelegate {
                 // If the proximity hasn't changed or is temporarily unknown
                 if(nearestBeacon.proximity == lastProximity ||
                     nearestBeacon.proximity == CLProximity.Unknown) {
-                        println("HERES THE NUMBER JAJAJA")
-                        println(nearestBeacon.major)
+                        //println("HERES THE NUMBER JAJAJA")
+                        //println(nearestBeacon.major)
                         UserManager.sharedInstance.currentLoc = nearestBeacon.major
                         updateLocation()
                         return;
@@ -119,8 +119,8 @@ extension AppDelegate: CLLocationManagerDelegate {
                     message = "You are near the beacon"
                 case CLProximity.Immediate:
                     message = "You are in the immediate proximity of the beacon"
-                    println("HERES THE NUMBER JAJAJA")
-                    println(nearestBeacon.major)
+                    //println("HERES THE NUMBER JAJAJA")
+                    //println(nearestBeacon.major)
                     UserManager.sharedInstance.currentLoc = nearestBeacon.major
                     updateLocation()
                 case CLProximity.Unknown:
