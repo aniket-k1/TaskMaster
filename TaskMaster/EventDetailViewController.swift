@@ -15,7 +15,7 @@ class EventDetailViewController: UITableViewController, UITableViewDelegate, UIT
     var backlog:[Task] = []
     var inProgress:[Task] = []
     var done:[Task] = []
-    var firebaseRoot:Firebase = Firebase(url: "https://thetaskmaster.firebaseio.com/tasks")
+    var firebaseRoot:Firebase = Firebase(url: "https://thetaskmaster.firebaseio.com/")
     
     var selectedTask:Task?
     
@@ -64,18 +64,28 @@ class EventDetailViewController: UITableViewController, UITableViewDelegate, UIT
             return
         }
         
-        firebaseRoot.childByAppendingPath("\(event!.id!)/").observeEventType(FEventType.ChildAdded, withBlock: {snapshot in
-            self.addTask(snapshot)
+        firebaseRoot.childByAppendingPath("events/\(event!.id!)/people/\(UserManager.sharedInstance.uid!)/assigned/").observeEventType(FEventType.ChildAdded, withBlock: { (snapshot) -> Void in
+            self.firebaseRoot.childByAppendingPath("tasks/\(self.event!.id!)/\(snapshot.value!)").observeSingleEventOfType(FEventType.Value, withBlock: { (snapshot2) -> Void in
+                var notification:UILocalNotification = UILocalNotification()
+                notification.fireDate = NSDate(timeIntervalSinceNow: 1)
+                notification.alertBody = "You have been assigned a new task: " + (snapshot2.value["title"] as! String)
+                notification.timeZone = NSTimeZone.defaultTimeZone()
+                UIApplication.sharedApplication().scheduleLocalNotification(notification)
+            })
             
         })
         
-        firebaseRoot.childByAppendingPath("\(event!.id!)/").observeEventType(FEventType.ChildChanged, withBlock: {snapshot in
+        firebaseRoot.childByAppendingPath("tasks/\(event!.id!)/").observeEventType(FEventType.ChildAdded, withBlock: {snapshot in
+            self.addTask(snapshot)
+        })
+        
+        firebaseRoot.childByAppendingPath("tasks/\(event!.id!)/").observeEventType(FEventType.ChildChanged, withBlock: {snapshot in
             // Find task by key, remove it
             self.removeTask(snapshot.key)
             self.addTask(snapshot)
         })
         
-        firebaseRoot.childByAppendingPath("\(event!.id!)/").observeEventType(FEventType.ChildRemoved, withBlock: {snapshot in
+        firebaseRoot.childByAppendingPath("tasks/\(event!.id!)/").observeEventType(FEventType.ChildRemoved, withBlock: {snapshot in
             // Find task by key, remove it
             self.removeTask(snapshot.key)
             self.tableView.reloadData()
