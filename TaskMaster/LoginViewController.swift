@@ -32,14 +32,14 @@ class LoginViewController : UIViewController {
             
             ref.observeEventType(.Value, withBlock: { snapshot in
                 //println(snapshot.value)
-                if snapshot.value == nil {
+                
+                var result = snapshot.value as? Dictionary<String, AnyObject>
+                if result == nil {
                     return
                 }
                 
-                var result = snapshot.value as! Dictionary<String, AnyObject>
-                
                 // for each event
-                for (key, value) in result {
+                for (key, value) in result! {
                     
                     var baseUrl = "https://thetaskmaster.firebaseio.com/events/"
                     var eventUrl = baseUrl + key
