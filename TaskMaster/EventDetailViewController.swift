@@ -156,6 +156,7 @@ class EventDetailViewController: UITableViewController, UITableViewDelegate, UIT
         
         if segue.identifier == "taskDetailSegue" {
             (segue.destinationViewController as! TaskDetailViewController).task = self.selectedTask
+            (segue.destinationViewController as! TaskDetailViewController).event = self.event
         } else {
             (segue.destinationViewController as! AddTaskViewController).event = self.event
         }

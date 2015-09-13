@@ -7,10 +7,12 @@
 //
 
 import UIKit
+import Firebase
 
 class TaskDetailViewController: UITableViewController, UITableViewDelegate {
 
     var task:Task?
+    var event:Event?
     
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var assigneeLabel: UILabel!
@@ -44,6 +46,31 @@ class TaskDetailViewController: UITableViewController, UITableViewDelegate {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        if indexPath.section == 0 {
+            return
+        }
+        
+        switch indexPath.row {
+        case 0:
+            // Move to next state
+            if task!.state == TaskState.Backlog {
+                task!.state = TaskState.InProgress
+            } else if task!.state == TaskState.InProgress {
+                task!.state = TaskState.Done
+            }
+            var firebaseRoot:Firebase = Firebase(url: "https://thetaskmaster.firebaseio.com/tasks/\(event!.id!)/\(task!.key!)/state")
+            firebaseRoot.setValue(task!.state.rawValue)
+        case 1:
+            // Defer
+            // TODO
+            fallthrough
+        default:
+            return
+        }
+        self.navigationController?.popViewControllerAnimated(true)
     }
 
     // MARK: - Table view data source
