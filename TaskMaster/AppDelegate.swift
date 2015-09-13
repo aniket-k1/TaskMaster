@@ -105,6 +105,7 @@ extension AppDelegate: CLLocationManagerDelegate {
                         println("HERES THE NUMBER JAJAJA")
                         println(nearestBeacon.major)
                         UserManager.sharedInstance.currentLoc = nearestBeacon.major
+                        updateLocation()
                         return;
                 }
                 lastProximity = nearestBeacon.proximity;
@@ -121,6 +122,7 @@ extension AppDelegate: CLLocationManagerDelegate {
                     println("HERES THE NUMBER JAJAJA")
                     println(nearestBeacon.major)
                     UserManager.sharedInstance.currentLoc = nearestBeacon.major
+                    updateLocation()
                 case CLProximity.Unknown:
                     return
                 }
