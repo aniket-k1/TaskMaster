@@ -77,7 +77,7 @@ class AddTaskViewController: UIViewController {
                    highest_ongoing_tasks = doing
                 }
                 
-                if ( (!busy) && (doing <= highest_ongoing_tasks) && (self.event!.owner != key as? String) ) {
+                if ( (!busy) && (doing <= highest_ongoing_tasks) ) {
                     members2.append(key as! String)
                 } else if (busy) {
                     highest_ongoing_tasks = doing
@@ -85,8 +85,7 @@ class AddTaskViewController: UIViewController {
                 counter++
             }
             println(members2)
-            var taskAssignee = members2[Int(arc4random_uniform(UInt32(members2.count)))]
-            task.assignee = taskAssignee
+            task.assignee = members2[Int(arc4random_uniform(UInt32(members2.count)))]
             newChild.setValue(task.toDict())
             self.navigationController?.popViewControllerAnimated(true)
         })
