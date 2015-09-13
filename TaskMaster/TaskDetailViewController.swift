@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TaskDetailViewController: UITableViewController {
+class TaskDetailViewController: UITableViewController, UITableViewDelegate {
 
     var task:Task?
     
@@ -24,14 +24,20 @@ class TaskDetailViewController: UITableViewController {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
         
+        self.tableView.delegate = self
+        
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
         titleLabel.text = task?.title
-        assigneeLabel.text = "Assigned to \(task?.assignee)"
-        movetoLabel.text = task?.state == TaskState.Backlog ? "Complete Task" : "Move to In Progress"
+        assigneeLabel.text = "Assigned to \(task!.assignee!)"
+        movetoLabel.text = task?.state == TaskState.InProgress ? "Complete Task" : "Move to In Progress"
+        
+        if task?.state == TaskState.Done {
+            movetoLabel.hidden = true
+        }
 
     }
 
@@ -41,18 +47,6 @@ class TaskDetailViewController: UITableViewController {
     }
 
     // MARK: - Table view data source
-
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Potentially incomplete method implementation.
-        // Return the number of sections.
-        return 0
-    }
-
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete method implementation.
-        // Return the number of rows in the section.
-        return 0
-    }
 
     /*
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
