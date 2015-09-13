@@ -38,11 +38,14 @@ class Task {
         ]
     }
     
-    func onAssigned(event: Event, uid:String) {
-        // TODO
-        var assignedList = event.people[uid]!["assigned"] as! [String]
-        assignedList.append(self.key!)
-        (event.people[uid]!)["assigned"] = assignedList
+    func onAssigned(event: Event) {
+        var uid = self.assignee!
+        var assignedList = event.people[uid]!["assigned"] as? [String]
+        if assignedList == nil {
+            assignedList = []
+        }
+        assignedList!.append(self.key!)
+        (event.people[uid]!)["assigned"] = assignedList!
             
         var firebaseRoot:Firebase = Firebase(url: "https://thetaskmaster.firebaseio.com")
         firebaseRoot.childByAppendingPath("/events/\(event.id!)/people").setValue(event.people)

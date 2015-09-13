@@ -87,7 +87,9 @@ class AddTaskViewController: UIViewController {
             println(members2)
             task.assignee = members2[Int(arc4random_uniform(UInt32(members2.count)))]
             newChild.setValue(task.toDict())
-            self.navigationController?.popViewControllerAnimated(true)
+            task.key = newChild.key
+            task.onAssigned(self.event!)
+            //self.navigationController?.popViewControllerAnimated(true)
         })
         
         let config = NSURLSessionConfiguration.defaultSessionConfiguration()
