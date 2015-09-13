@@ -122,11 +122,11 @@ class AddTaskViewController: UIViewController {
             (data,response,error) in
             if let jsonResult: AnyObject = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: nil){
                 
-                println(jsonResult)
+                //println(jsonResult)
                 var outcomes = jsonResult["outcomes"] as! [[String:AnyObject]]
                 var entities = outcomes[0]["entities"] as? [String:AnyObject]
                 var from = entities?["from"] as? [[String:AnyObject]]
-                println(from?[0]["value"])
+                println(from?[0]["value"] as? String)
                 
             }
         }
