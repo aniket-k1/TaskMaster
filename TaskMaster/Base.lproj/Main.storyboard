@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="PHo-z8-hK5">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="PHo-z8-hK5">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -47,6 +47,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Events" id="Ppj-D5-SSa">
+                        <barButtonItem key="leftBarButtonItem" title="Beacons" id="C8j-5a-fTg"/>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="TWL-Z5-eZm">
                             <connections>
                                 <segue destination="Hgk-lf-HDe" kind="show" identifier="addEventSegue" id="fxx-ap-57H"/>
