@@ -9,6 +9,7 @@
 import UIKit
 import Wit
 import CoreLocation
+import Firebase
 
 var abeacons: [AnyObject] = []
 
@@ -88,6 +89,7 @@ extension AppDelegate: CLLocationManagerDelegate {
     
     func locationManager(manager: CLLocationManager!, didRangeBeacons beacons: [AnyObject]!, inRegion region: CLBeaconRegion!) {
         
+        
             NSLog("didRangeBeacons");
             var message:String = ""
         
@@ -100,9 +102,14 @@ extension AppDelegate: CLLocationManagerDelegate {
                 // If the proximity hasn't changed or is temporarily unknown
                 if(nearestBeacon.proximity == lastProximity ||
                     nearestBeacon.proximity == CLProximity.Unknown) {
+                        println("HERES THE NUMBER JAJAJA")
+                        println(nearestBeacon.major)
+                        UserManager.sharedInstance.currentLoc = nearestBeacon.major
                         return;
                 }
                 lastProximity = nearestBeacon.proximity;
+                
+
                 
                 switch nearestBeacon.proximity {
                 case CLProximity.Far:
@@ -111,6 +118,9 @@ extension AppDelegate: CLLocationManagerDelegate {
                     message = "You are near the beacon"
                 case CLProximity.Immediate:
                     message = "You are in the immediate proximity of the beacon"
+                    println("HERES THE NUMBER JAJAJA")
+                    println(nearestBeacon.major)
+                    UserManager.sharedInstance.currentLoc = nearestBeacon.major
                 case CLProximity.Unknown:
                     return
                 }

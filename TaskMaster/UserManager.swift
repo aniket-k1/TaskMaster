@@ -15,6 +15,10 @@ class UserManager {
     var password: String?
     var uid: String?
     
+    var currentLoc: NSNumber?
+    
+    var eventArray: [String?] = []
+    
     var loggedIn:Bool = false
     
     func login(email: String, password: String, uid: String) {
