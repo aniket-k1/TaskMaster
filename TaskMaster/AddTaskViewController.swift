@@ -81,8 +81,8 @@ class AddTaskViewController: UIViewController {
 //                    assigned = []
 //                }
                 
-                if value["location"] != nil {
-                    location = value["location"] as! NSNumber
+                if value["location"] as? Int != nil {
+                    location = value["location"] as! Int
                 } else {
                     location = 0
                 }
@@ -111,22 +111,22 @@ class AddTaskViewController: UIViewController {
         })
         
         let config = NSURLSessionConfiguration.defaultSessionConfiguration()
-        let auth = "Bearer WBS644TG2646OZ5QIJTU5R7PQF3G32PY"
+        let auth = "Bearer LKKKYZ6G5JJRHW2FELNNIEHRN6VZLUXK"
         config.HTTPAdditionalHeaders = ["Authorization" : auth]
         let urlsess = NSURLSession(configuration: config)
         
         var titleNonEncode = task.title!
         var titleEncode = titleNonEncode.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())!
-        let url = NSURL(string: "https://api.wit.ai/message?v=20150912&q=\(titleEncode)&_t=291")
+        let url = NSURL(string: "https://api.wit.ai/message?v=20150913&q=\(titleEncode)&_t=291")
         let datatask = urlsess.dataTaskWithURL(url!) {
             (data,response,error) in
             if let jsonResult: AnyObject = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: nil){
                 
-                //println(jsonResult)
-                var outcomes = jsonResult["outcomes"]! as! NSArray
-                var entities = outcomes[0]["entities"]! as! NSDictionary
-                var from = entities["from"]! as! NSArray
-                println(from)
+                println(jsonResult)
+                var outcomes = jsonResult["outcomes"] as! [[String:AnyObject]]
+                var entities = outcomes[0]["entities"] as? [String:AnyObject]
+                var from = entities?["from"] as? [[String:AnyObject]]
+                println(from?[0]["value"])
                 
             }
         }
