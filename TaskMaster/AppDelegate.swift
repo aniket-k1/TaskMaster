@@ -26,8 +26,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         Wit.sharedInstance().accessToken = "KGU3BRZ5IY37QT6R3BNCQ4RB6O7VKW6T"
         Wit.sharedInstance().detectSpeechStop = WITVadConfig.DetectSpeechStop
         
-        let uuidString = "B7D1027D-6788-416E-994F-EA11075F1765"
-        let beaconIdentifier = "Kashav's iPhone"
+        let uuidString = ""
+        let beaconIdentifier = ""
         let beaconUUID:NSUUID = NSUUID(UUIDString: uuidString)!
         let beaconRegion:CLBeaconRegion = CLBeaconRegion(proximityUUID: beaconUUID,
             identifier: beaconIdentifier)
